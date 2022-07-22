@@ -22,7 +22,7 @@ export default function Gallery(props){
     const [gallery, setGallery] = React.useState([]);
     const {remoteControl, dataChange, setChipData} = props;
 
-    const { search_object } = React.useContext(PASTContext);
+    const { search_object, typeForTable } = React.useContext(PASTContext);
 
     function handleChangePage(event, newPage){
         if(newPage < 0 || newPage > parseInt(total / resPerPage, 10)) return;
@@ -36,6 +36,10 @@ export default function Gallery(props){
         setPage(0);
     };
 
+    useEffect(() =>{
+      setPage(0);
+    }, [typeForTable])
+
 
     useEffect(() => {
         console.log("page number data update!");
@@ -46,12 +50,12 @@ export default function Gallery(props){
           });
         }
         console.log("form: ", queryData);
-        fetch(base_url + "past/enslaved/", {
+        fetch(base_url + (typeForTable == "slaves" ? "past/enslaved/" : "past/enslavers/"), {
             method: "POST",
             body: queryData,
             headers: {'Authorization': auth_token}
           }).then(res => setTotal(res.headers.get("total_results_count")));
-    }, [search_object])
+    }, [search_object, typeForTable])
     
 
     useEffect(() => {
@@ -63,7 +67,7 @@ export default function Gallery(props){
             queryData.append(property, v);
           });
         }
-        fetch(base_url + "past/enslaved/", {
+        fetch(base_url + (typeForTable == "slaves" ? "past/enslaved/" : "past/enslavers/"), {
             method: "POST",
             body: queryData,
             headers: {'Authorization': auth_token}
@@ -72,20 +76,20 @@ export default function Gallery(props){
               setGData(res);
           })
 
-    }, [page, resPerPage, search_object])
+    }, [page, resPerPage, search_object, typeForTable])
 
     useEffect(() => {
         const oldGallery = [];
         //console.log("gData", gData)
         gData.forEach(item => {
-            oldGallery.push(<Grid item xs={12} sm={6} md={4} lg={3}><Story target={item} dynamic={true} remoteControl = {remoteControl("body")} dataChange = {dataChange} setChipData={setChipData}/></Grid>)
+            oldGallery.push(<Grid item xs={12} sm={6} md={4} lg={3}><Story target={item} dynamic={true} remoteControl = {remoteControl("body")} dataChange = {dataChange} setChipData={setChipData} slavery={typeForTable}/></Grid>)
         })
         setGallery(oldGallery);
     }, [gData])
     
   return (
     <div className = "storybackground" marginTop ={{ xs: 2, md: 2, lg:4 }} >
-      {/* <button onClick={() => {remoteControl("body")}}>open</button> */}
+      {/* <button onClick={() => console.log("gallery: ", gallery)}>print</button> */}
     <TablePagination
       component="div"
       count={total}
