@@ -10,6 +10,7 @@
     "@mui/icons-material": "^5.8.3",
     "@mui/lab": "^5.0.0-alpha.85",
     "@mui/material": "^5.8.2",
+    "@mui/x-data-grid": "^5.14.0",
     "@react-hook/window-size": "^3.0.7",
     "@turf/turf": "^6.5.0",
     "@visx/group": "^2.10.0",

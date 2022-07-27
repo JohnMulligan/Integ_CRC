@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import TrackVisibility from "react-on-screen";
 import {Animated} from "react-animated-css";
 import {Box, Button, Divider, List, ListItem} from "@mui/material";
-import ResponsiveAppBar from "../NavBar";
+// import ResponsiveAppBar from "../NavBar";
 import Container from "@mui/material/Container";
 import BarComponent from "./HomePagePlotly/BarHome";
 import PieComponent from "./HomePagePlotly/PieHome";
@@ -13,6 +13,8 @@ import TableHome from "./HomePagePlotly/TableHome/TableHome";
 import SankeyHome from "./HomePagePlotly/SankeyHome";
 import StoryHome from "./HomePagePlotly/StoryHome";
 import NetworkHome from "./HomePagePlotly/NetworkHome";
+import RelationModal from "../testScript/RelationModal";
+import ResponsiveAppBar from "../testScript/NavBar";
 //import PAST from "../PAST/PAST";
 //import {PASTContext} from "../PAST/PASTApp";
 // const darkTheme = createTheme({
@@ -46,9 +48,10 @@ export default function Home() {
   return (
     // <ThemeProvider theme={darkTheme}>
       <div>
-        <HomeContext.Provider value={{dataSet, pageType:"home"}}>
-          <ResponsiveAppBar context={HomeContext}/>
-        </HomeContext.Provider>
+        {/*<HomeContext.Provider value={{dataSet, pageType:"home"}}>*/}
+        {/*  <ResponsiveAppBar context={HomeContext}/>*/}
+        {/*</HomeContext.Provider>*/}
+        <ResponsiveAppBar state={{pageType: "home"}}/>
         <Container maxWidth={false}>
         
           <List>
