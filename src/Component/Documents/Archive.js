@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
 import { Button, Modal, Box, Container, Avatar, ListItem,Dialog,TablePagination} from "@mui/material";
 import ResponsiveAppBar from "../NavBar";
+import { alpha } from "@mui/material"; //color mix
 
 import "universalviewer/dist/esm/index.css";
 import { init } from "universalviewer";
@@ -50,6 +51,13 @@ const UV = ({ manifest, parentWidth }) => {
                         height: "50vh"
                     }}/>;
 };
+
+function curImage(src){
+  var arr1 = src.split("medium");
+  return arr1[0] + "square" + arr1[1];
+  
+}
+
 export default function Archive() {
     const [width, height] = useWindowSize()
     const DocContext = React.createContext({});
@@ -59,7 +67,7 @@ export default function Archive() {
     const [itemData, setData] = useState([])
 
     const [page, setPage] = React.useState(1);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rowsPerPage, setRowsPerPage] = React.useState(25);
     const [total, setTotal] = useState(0)
     const handleChangePage = (event, newPage) => {
       setPage(newPage);
@@ -140,7 +148,7 @@ export default function Archive() {
             return fetch(Object.values(uri), {
               method: "GET",
             }).then(res => res.json()).then(res => {
-              var dict = {"title": res.label.none[0], "image": res.thumbnail[0].id,"uri":uri}
+              var dict = {"title": res.label.none[0], "image": curImage(res.thumbnail[0].id),"uri":uri}
               return dict;
             })
           })
@@ -161,9 +169,13 @@ export default function Archive() {
               onPageChange={handleChangePage}
               rowsPerPage={rowsPerPage}
               onRowsPerPageChange={handleChangeRowsPerPage}
+              rowsPerPageOptions={[16, 25, 36, 49, 64]}
             />
             {/* {console.log(parseInt(width/300))} */}
-            <ImageList sx={{ width: width, height: height }} cols={5} gap={30} >
+            <ImageList sx={{ width: width, height: (page + 1) * rowsPerPage > total ? 200: height }} cols={
+              (page + 1) * rowsPerPage > total ? 8 :
+              Math.sqrt(rowsPerPage)
+              } gap={30} >
               {itemData.map((item) => (
                 <ImageListItem key={item.image}>
                   <img
@@ -171,9 +183,12 @@ export default function Archive() {
                     srcSet={`${item.image}?w=248&fit=crop&auto=format&dpr=2 2x`}
                     alt={item.title}
                     loading="lazy"
+                    width="30px"
+                    height="30px"
                   />
                   <ImageListItemBar
                     title={item.title}
+                    sx ={{bgcolor: alpha('#549165',0.8)}}
                     actionIcon={
                       <IconButton
                         sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
