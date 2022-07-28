@@ -87,7 +87,7 @@ export default function Archive() {
         left: "50%",
         transform: "translate(-50%, -50%)",
         p: 4,
-        overflow: "scroll",
+        // overflow: "scroll",
         maxHeight: 500,
       };
     //   useEffect(() => {
@@ -135,10 +135,10 @@ export default function Archive() {
         // .then(res => res.json())
         // .then(res=>setapiurl(res))
         // const response = await Promise.all(promises)
-        console.log(result)
+        // console.log(result)
         setapiurl(result)
       }
-        console.log(apiUrl) 
+        // console.log(apiUrl) 
         fetchData().catch(console.error);
       },[page,rowsPerPage])
 
@@ -154,7 +154,7 @@ export default function Archive() {
           })
           const response = await Promise.all(promises)
           setData(response)
-          console.log(itemData)
+          // console.log(itemData)
         }
         fetchData().catch(console.error);
       }, [apiUrl])
