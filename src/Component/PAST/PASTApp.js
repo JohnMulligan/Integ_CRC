@@ -45,7 +45,6 @@ export default function PASTApp(props) {
   const handleDrawerClose = () => {
       setDrawerOpen(!drawerOpen);
   };
-
   // const options_flat = () => {
   //   switch (typeForTable){
   //     case "slaves": return enslaved_options_flat

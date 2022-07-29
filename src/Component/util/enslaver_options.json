@@ -5586,13 +5586,13 @@
   },
   "father_name": {
     "type": "<class 'rest_framework.fields.CharField'>",
-    "label": "Father name",
-    "flatlabel": "Father name"
+    "label": "Parent name",
+    "flatlabel": "Parent name"
   },
   "father_occupation": {
     "type": "<class 'rest_framework.fields.CharField'>",
-    "label": "Father occupation",
-    "flatlabel": "Father occupation"
+    "label": "Parent occupation",
+    "flatlabel": "Parent occupation"
   },
   "mother_name": {
     "type": "<class 'rest_framework.fields.CharField'>",

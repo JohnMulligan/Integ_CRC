@@ -9,24 +9,24 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import Icon from '@mui/material/Icon';
 import logo from "../../images/sv-logo.png";
-import {Chip, Stack, ToggleButton, ToggleButtonGroup} from "@mui/material";
+import {ButtonGroup, Chip, Stack, ToggleButton, ToggleButtonGroup} from "@mui/material";
 import {useContext, useMemo, useState} from "react";
 import _ from 'lodash';
 import Filter from "../VoyagePage/Filter/Filter"
 import RelationModal from "./RelationModal";
 
 export default function ResponsiveAppBar(props) {
-  const {pageType, dataset, setDataset} = props.state;
+  const {pageType, search_object, set_search_object} = props.state;
   const color = useMemo(() => {
     if(pageType=== "enslaver"){
       return "success"
     }
-    if(dataset==="0") {
+    if(search_object.dataset[0]==="0") {
       return "primary"
     }else{
       return "secondary"
     }
-  }, [dataset])
+  }, [search_object.dataset])
   return (
     <AppBar position="sticky" color={color} elevation={0} style={{zIndex:4}}>
       <Container maxWidth="xl">
@@ -51,44 +51,39 @@ export default function ResponsiveAppBar(props) {
           >
             Voyages
           </Typography>
-          <RelationModal >
-            <Button variant={"contained"} >Open Modal</Button>
-          </RelationModal>
-          <Chip label={"asdqw"}/>
+          {/*<RelationModal >*/}
+          {/*  <Button variant={"contained"} >Open Modal</Button>*/}
+          {/*</RelationModal>*/}
+          {/*<Chip label={"asdqw"}/>*/}
           <Stack spacing={4} direction={"row"} justifyContent="flex-end"
                  alignItems="flex-end" sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
 
           {/*  /!*{pageType !== "home" ? <Filter/>: null}*!/*/}
 
-            {pageType !== "home" ?
+            {pageType !== "home" && pageType !== "enslaver"?
               <ToggleButtonGroup
-                value={dataset}
+                value={search_object.dataset[0]}
                 exclusive
                 onChange={(event) => {
-                  setDataset(event.target.value)
+                  set_search_object({...search_object, dataset: [event.target.value, event.target.value]})
                 }}
-                sx={{background: dataset === "0" ? "#42a5f5" : "#ab47bc"}}
                 size={"small"}
-
               >
                 <ToggleButton sx={{background: "#42a5f5"}} value={"0"} >Trans-Atlantic</ToggleButton>
                 <ToggleButton sx={{background: "#ab47bc"}} value={"1"} >Intra-American</ToggleButton>
               </ToggleButtonGroup>:
               null}
 
-            {/*{pageType === "slave" || pageType === "enslaver"?*/}
-            {/*  <ToggleButtonGroup*/}
-            {/*    value={pageType === "slave"?"0":"1"}*/}
-            {/*    size={"small"}*/}
-            {/*  >*/}
-            {/*    <Link to={"/past/enslaved"} style={{ textDecoration: "none" }}>*/}
-            {/*      <ToggleButton sx={{background: dataset === "0"?"#42a5f5":"#ab47bc"}} value={"0"}>Enslaved People</ToggleButton>*/}
-            {/*    </Link>*/}
-            {/*    <Link to={"/past/enslaver"} style={{ textDecoration: "none" }}>*/}
-            {/*      <ToggleButton sx={{background: "#388e3c"}}  value={"1"}>Enslavers</ToggleButton>*/}
-            {/*    </Link>*/}
-            {/*  </ToggleButtonGroup>:*/}
-            {/*  null}*/}
+            {pageType === "slave" || pageType === "enslaver"?
+              <ButtonGroup variant="outlined">
+                <Link to={"/past/enslaved"} style={{ textDecoration: "none" }}>
+                  <Button sx={{background: "#42a5f5"}} value={"0"}>Enslaved People</Button>
+                </Link>
+                <Link to={"/past/enslaver"} style={{ textDecoration: "none" }}>
+                  <Button sx={{background: "#388e3c"}}  value={"1"}>Enslavers</Button>
+                </Link>
+              </ButtonGroup> :
+              null}
           </Stack>
 
           <Box

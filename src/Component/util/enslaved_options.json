@@ -10816,13 +10816,13 @@
   },
   "transactions__transaction__enslavers__enslaver_alias__identity__father_name": {
     "type": "<class 'rest_framework.fields.CharField'>",
-    "label": "Father name",
-    "flatlabel": "enslaved in relation : enslavement relation : enslaver in relation : Enslaver alias : identity : Father name"
+    "label": "Parent name",
+    "flatlabel": "enslaved in relation : enslavement relation : enslaver in relation : Enslaver alias : identity : Parent name"
   },
   "transactions__transaction__enslavers__enslaver_alias__identity__father_occupation": {
     "type": "<class 'rest_framework.fields.CharField'>",
-    "label": "Father occupation",
-    "flatlabel": "enslaved in relation : enslavement relation : enslaver in relation : Enslaver alias : identity : Father occupation"
+    "label": "Parent occupation",
+    "flatlabel": "enslaved in relation : enslavement relation : enslaver in relation : Enslaver alias : identity : Parent occupation"
   },
   "transactions__transaction__enslavers__enslaver_alias__identity__mother_name": {
     "type": "<class 'rest_framework.fields.CharField'>",
